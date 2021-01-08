@@ -3,10 +3,7 @@ package processMining;
 import dataProcess.Caculation;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -23,7 +20,15 @@ public class TestCaculation {
 
     @Test
     public void testAnyway(){
-        System.out.println();
+        Map<String,List<Long>> test = new HashMap<>();
+        List<Long> test1 = new ArrayList<>();
+        test1.add(0L);
+
+        test.put("karen",test1);
+        System.out.println(test);
+        Long test2 = 1L;
+        test.get("karen").add(test2);
+        System.out.println(test);
     }
 
     @Test
@@ -54,25 +59,8 @@ public class TestCaculation {
         test.add(test5);
         test.add(test6);
 
-        List<List<String>> newTest = test.stream()
-                .sorted((x, y) -> {
-                    Long xTime = null;
-                    Long yTime = null;
-                    if(x.get(2).equals("nan")){
-                        xTime = 0L;
-                    }else if(y.get(2).equals("nan")) {
-                        yTime = 0L;
-                    }else {
-                        xTime = caculation.convert2Date(x.get(2));
-                        yTime = caculation.convert2Date(y.get(2));
-                    }
-                    if(Long.compare(xTime,0L) || Long.compare(yTime, 0L)){
-                        return
-                    }
-                });
-        for(List<String> s: newTest){
-            System.out.println(s.get(1));
-        }
-
+        List<List<String>> result = caculation.sortedByStartTime(test);
+        System.out.println(result);
     }
+
 }
