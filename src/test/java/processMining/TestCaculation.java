@@ -63,4 +63,14 @@ public class TestCaculation {
         System.out.println(result);
     }
 
+    @Test
+    public void testCaculate(){
+        String fileName = "android_extract";
+        Caculation caculation = new Caculation(fileName);
+
+        caculation.caculate();
+        System.out.println(caculation.getNodeMap());
+        System.out.println(caculation.getEdgeMap());
+    }
+
 }
