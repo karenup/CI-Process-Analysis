@@ -1,9 +1,10 @@
 package processMining;
 
-import dataProcess.Caculation;
+import processMining.Caculation;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 
 /**
@@ -15,20 +16,17 @@ public class TestCaculation {
     public void testRead(){
         String fileName = "android_extract";
         Caculation caculation = new Caculation(fileName);
-        caculation.caculate();
+        caculation.calculate();
     }
 
     @Test
     public void testAnyway(){
-        Map<String,List<Long>> test = new HashMap<>();
-        List<Long> test1 = new ArrayList<>();
-        test1.add(0L);
+        String str = "install.2";
+        String pattern1 = ".*[a-z]2[a-z].*";
+        String pattern2 = ".*[a-z].22[a-z].*";
+        boolean isMatch = Pattern.matches(pattern1,str);
+        System.out.println(isMatch);
 
-        test.put("karen",test1);
-        System.out.println(test);
-        Long test2 = 1L;
-        test.get("karen").add(test2);
-        System.out.println(test);
     }
 
     @Test
@@ -65,10 +63,10 @@ public class TestCaculation {
 
     @Test
     public void testCaculate(){
-        String fileName = "android_extract";
+        String fileName = "testData";
         Caculation caculation = new Caculation(fileName);
 
-        caculation.caculate();
+        caculation.calculate();
         System.out.println(caculation.getNodeMap());
         System.out.println(caculation.getEdgeMap());
     }

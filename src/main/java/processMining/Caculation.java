@@ -1,13 +1,13 @@
-package dataProcess;
+package processMining;
 
 import CONSTANT.FilePath;
-import org.camunda.feel.syntaxtree.In;
 
 import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -26,9 +26,6 @@ public class Caculation {
     private HashMap<String, List<Long>> nodeMap = new HashMap<>();
     private HashMap<String,List<Long>> edgeMap = new HashMap<>();
     private HashMap<String,List<Long>> timeMap = new HashMap<>();
-
-    List<Long> nodeValue = Arrays.asList(0L,0L,0L,0L,0L);
-    List<Long> edgeValue = Arrays.asList(0L,0L,0L,0L,0L);
 
     public String getFileName() {
         return fileName;
@@ -122,10 +119,50 @@ public class Caculation {
     }
 
     /**
-     * 更新nodeMap, edgemap, timeMap
+     * 更新nodeMap和edgeMap
+     */
+    public void updateNodeMap(){
+        List<Long> nodeValue = Arrays.asList(0L,0L,0L,0L);
+
+        /**
+         * 计算时间参数
+         */
+        for(Map.Entry<String,List<Long>> entry:timeMap.entrySet()){
+            List<Long> timeValue = entry.getValue();
+            Long totalTime = timeValue.stream().reduce(Long::sum).orElse(0L);
+            if(timeValue.size() <= 1){
+                System.out.println(entry.getKey()+timeValue);
+            }
+            Long medianTime = timeValue.get(timeValue.size()/2+1);
+            if(timeValue.size()%2 == 0){
+                medianTime = (timeValue.get(timeValue.size()/2)+timeValue.get(timeValue.size()/2+1))/2;
+            }
+            Long averageTime = totalTime/timeValue.size();
+            Long totalCount = (long)timeValue.size();
+
+            nodeValue.set(0,totalTime);
+            nodeValue.set(1,averageTime);
+            nodeValue.set(2,medianTime);
+            nodeValue.set(3,totalCount);
+
+            //判断是点还是边
+            String nodeName = entry.getKey();
+            String pattern1 = ".*[a-z]2[a-z].*";
+            String pattern2 = ".*[a-z].[0-9]2[a-z].*";
+            if(Pattern.matches(pattern1,nodeName) || Pattern.matches(pattern2,nodeName)){
+                edgeMap.put(nodeName,new ArrayList<>(nodeValue));
+            }else {
+                nodeMap.put(nodeName,new ArrayList<>(nodeValue));
+            }
+        }
+
+    }
+
+    /**
+     * 更新timeMap
      * @param newJob
      */
-    public void updateNodeMap(List<List<String>> newJob){
+    public void updateTimeMap(List<List<String>> newJob){
         String nodeName = null;
         String edgeName = null;
 
@@ -173,76 +210,21 @@ public class Caculation {
                     timeMap.put(edgeName,timeInterList);
                 }
             }
-
-            //更新nodeMap
-            if(nodeMap.containsKey(nodeName)){
-                Long totalTime = timeMap.get(nodeName).stream().reduce(Long::sum).orElse(0L);
-                List<Long> sortedList = timeMap.get(nodeName).stream().sorted().collect(Collectors.toList());
-                Long medianTime = sortedList.get(sortedList.size()/2);
-                if(sortedList.size() % 2 == 0){
-                    medianTime = (sortedList.get(sortedList.size()/2-1)+medianTime)/2;
-                }
-                Long averageTime = totalTime/sortedList.size();
-                Long absoluteCount = (long)sortedList.size();
-                Long caseCount = nodeMap.get(nodeName).get(4);
-
-                caseCount = caseCount + 1;
-                nodeValue.set(0,totalTime);
-                nodeValue.set(1,medianTime);
-                nodeValue.set(2,averageTime);
-                nodeValue.set(3,absoluteCount);
-                nodeValue.set(4,caseCount);
-                nodeMap.put(nodeName, new ArrayList<>(nodeValue));
-            }else{
-                nodeValue.set(0,timeMap.get(nodeName).get(0));
-                nodeValue.set(1,timeMap.get(nodeName).get(0));
-                nodeValue.set(2,timeMap.get(nodeName).get(0));
-                nodeValue.set(3,1L);
-                nodeValue.set(4,1L);
-                nodeMap.put(nodeName,new ArrayList<>(nodeValue));
-            }
-
-            //更新edgeMap
-            if(edgeMap.containsKey(edgeName)){
-                Long totalInterval = timeMap.get(edgeName).stream().reduce(Long::sum).orElse(0L);
-                List<Long> sortedInterval = timeMap.get(edgeName).stream().sorted().collect(Collectors.toList());
-                Long medianInterval = sortedInterval.get(sortedInterval.size()/2);
-                if(medianInterval % 2 == 0){
-                    medianInterval = (sortedInterval.get(sortedInterval.size()/2-1)+medianInterval)/2;
-                }
-                Long averageInterval = timeInterval/sortedInterval.size();
-                Long absoluteInterval = (long) sortedInterval.size();
-                Long caseInterval = edgeMap.get(edgeName).get(4);
-                if (i == 1){
-                    caseInterval = caseInterval + 1;
-                }
-
-                edgeValue.set(0,totalInterval);
-                edgeValue.set(1,medianInterval);
-                edgeValue.set(2,averageInterval);
-                edgeValue.set(3,absoluteInterval);
-                edgeValue.set(4,caseInterval);
-                edgeMap.put(edgeName,new ArrayList<>(edgeValue));
-            }else {
-                if(edgeName != null){
-                    edgeValue.set(0,timeMap.get(edgeName).get(0));
-                    edgeValue.set(1,timeMap.get(edgeName).get(0));
-                    edgeValue.set(2,timeMap.get(edgeName).get(0));
-                    edgeValue.set(3,1L);
-                    edgeValue.set(4,1L);
-                    edgeMap.put(edgeName,new ArrayList<>(edgeValue));
-                }
-
-            }
-
         }
     }
 
     /**
      * 计算点、边参数
      */
-    public void caculate(){
+    public void calculate(){
         File csv = new File(FilePath.csvFilePath+this.fileName+".csv");
+        try {
+            FileInputStream fis = new FileInputStream(csv);
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         //将csv文件读取为text
         try{
             BufferedReader textFile = new BufferedReader(new FileReader(csv));
@@ -259,8 +241,8 @@ public class Caculation {
                     if (!dataList.get(0).equals(oneJob.get(oneJob.size() - 1).get(0))) {
                         List<List<String>> newJob = sortedByStartTime(oneJob);
                         if (!newJob.isEmpty()) {
-                            //更新nodeMap,edgeMap和timeMap
-                            updateNodeMap(newJob);
+                            //更新timeMap
+                            updateTimeMap(newJob);
                         }
                         oneJob.clear();
                     }
@@ -268,8 +250,9 @@ public class Caculation {
                 }
 
 //                System.out.println(lineDta);
-
             }
+            //更新nodeMap和edgeMap
+            updateNodeMap();
         } catch (FileNotFoundException e){
             System.out.println("没有找到文件");
         } catch (IOException e) {
