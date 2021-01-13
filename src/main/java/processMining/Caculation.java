@@ -1,6 +1,7 @@
 package processMining;
 
 import CONSTANT.FilePath;
+import fileformat.UnicodeReader;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -133,9 +134,9 @@ public class Caculation {
             if(timeValue.size() <= 1){
                 System.out.println(entry.getKey()+timeValue);
             }
-            Long medianTime = timeValue.get(timeValue.size()/2+1);
+            Long medianTime = timeValue.get(timeValue.size()/2);
             if(timeValue.size()%2 == 0){
-                medianTime = (timeValue.get(timeValue.size()/2)+timeValue.get(timeValue.size()/2+1))/2;
+                medianTime = (timeValue.get(timeValue.size()/2)+timeValue.get(timeValue.size()/2))/2;
             }
             Long averageTime = totalTime/timeValue.size();
             Long totalCount = (long)timeValue.size();
@@ -218,16 +219,13 @@ public class Caculation {
      */
     public void calculate(){
         File csv = new File(FilePath.csvFilePath+this.fileName+".csv");
-        try {
-            FileInputStream fis = new FileInputStream(csv);
 
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
         //将csv文件读取为text
         try{
-            BufferedReader textFile = new BufferedReader(new FileReader(csv));
+            FileInputStream fis = new FileInputStream(csv);
+            UnicodeReader ur = new UnicodeReader(fis, "utf-8");
+            BufferedReader textFile = new BufferedReader(ur);
             String lineDta = "";
             List<List<String>> oneJob = new ArrayList<>();
             while ((lineDta = textFile.readLine()) != null){

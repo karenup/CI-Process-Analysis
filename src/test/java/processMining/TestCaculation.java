@@ -1,7 +1,9 @@
 package processMining;
 
-import processMining.Caculation;
+
 import org.junit.Test;
+import processMining.Caculation;
+
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -63,7 +65,7 @@ public class TestCaculation {
 
     @Test
     public void testCaculate(){
-        String fileName = "testData";
+        String fileName = "android_extract";
         Caculation caculation = new Caculation(fileName);
 
         caculation.calculate();
