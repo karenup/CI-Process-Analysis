@@ -1,12 +1,7 @@
 package com.paper.CIprocessanalysis;
 
-import org.python.core.PyString;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.python.core.PyFunction;
-import org.python.core.PyInteger;
-import org.python.core.PyObject;
-import org.python.util.PythonInterpreter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -83,9 +78,9 @@ public class CiProcessAnalysisApplication {
 		SpringApplication.run(CiProcessAnalysisApplication.class, args);
 		CiProcessAnalysisApplication ciProcessAnalysisApplication = new CiProcessAnalysisApplication();
 
-        String CI = "D:/南京大学/研一/Thesis/日志整理/CI/vagrant_CI.csv";
-        String OUT = "D:/南京大学/研一/Thesis/日志整理/COtoCI/vagrant_out.csv";
-        String path = "D:/Users/b/PycharmProjects/jobLog/vagrant";
+        String CI = "D:/南京大学/研一/Thesis/日志整理/CI/graylog2-server_CI.csv";
+        String OUT = "D:/南京大学/研一/Thesis/日志整理/COtoCI/graylog2-server_out.csv";
+        String path = "D:/Users/b/PycharmProjects/jobLog/graylog2-server";
         String resultCSV = ciProcessAnalysisApplication.produceEventLog(CI,OUT,path);
         System.out.println(resultCSV);
 
