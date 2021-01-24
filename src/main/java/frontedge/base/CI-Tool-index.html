@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="过程挖掘，持续集成工具，CI，CI分析">
+    <meta name="description" content="一款处理CI日志文件，还原持续集成过程模型，对持续集成过程进行全面分析的网站。">
+    <title>CI-Process-Analysis-Tool:持续集成过程分析工具</title>
+
+    <link rel="stylesheet" href="../boot/css/bootstrap.min.css">
+    <link href="../boot/fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="../boot/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="../boot/fileinput/themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
+
+    <script src="../boot/js/jquery-3.5.1.js"></script>
+    <script src="../boot/fileinput/js/plugins/sortable.js" type="text/javascript"></script>
+    <script src="../boot/fileinput/js/fileinput.js" type="text/javascript"></script>
+    <script src="../boot/fileinput/js/locales/zh.js" type="text/javascript"></script>
+    <script src="../boot/fileinput/themes/explorer-fa/theme.js" type="text/javascript"></script>
+    <script src="../boot/fileinput/themes/fa/theme.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row" style="background-color: #3c3c3c;height: 60px">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <h1 style="color: white; font-size: 20px">
+                    CI-Process-Analysis-Tool
+                </h1>
+            </div>
+        </div>
+        <div class="row" style="height: 550px;background-image: url('../boot/img/background2.jpeg')">
+            <h1 class="text-center" style="color: white;font-size: 60px" >
+                <br>
+                <strong>CI-Process-Analysis-Tool</strong><br>
+                <small style="color: white">持续集成过程分析工具</small>
+            </h1>
+            <br>
+            <p class="text-center" style="color: white;font-size: 20px" >
+                一款针对 <em>持续集成</em> 的 <em>过程分析</em> 工具，能够
+                <ul class="list-unstyled" style="color: white">
+                    <li class="text-center">
+                        对日志进行获取、清洗、处理
+                    </li>
+                    <li class="text-center">
+                        还原不同粒度的过程模型
+                    </li>
+                    <li class="text-center">
+                        对过程中的参数进行统计分析
+                    </li>
+
+                </ul>
+            </p>
+        </div>
+        
+        <div class="row" style="height: 160px">
+            <h1 class="text-center">
+                <br>
+                <strong>How to Use?</strong><br>
+                <small style="font-size: 19px">根据下列步骤进行日志上传和过程分析</small>
+            </h1>
+            
+            <div  class="row" style="border: 1px lightgray solid" ></div>
+            
+        </div>
+        <div class="row" style=" background-image: url('../boot/img/stepbackground3.png');padding: 20px;padding-left: 100px">
+            <h1>Step1. 数据上传 <span class="glyphicon glyphicon-open"></span></h1>
+            <h2><small style="font-size: 20px">上传项目的构建日志、提交日志，以及job日志的打包文件</small></h2>
+            <br>
+            <label class="control-label">Select File</label>
+            <input id="input-b5" name="input-b5[]" type="file" multiple>
+        </div>
+        <br>
+        <div  class="row" style="border: 1px lightgray solid" ></div>
+
+        <div class="row" style="background-image: url('../boot/img/stepbackground3.png');padding: 20px;padding-left: 100px">
+            <h1>Step2. 日志下载 <span class="glyphicon glyphicon-save"></span></h1>
+            <h2><small style="font-size: 20px">下载处理后的标准事件日志</small></h2>
+            <br>
+            <button class=" btn btn-primary">Download</button>
+        </div>
+        <br>
+        <div  class="row" style="border: 1px lightgray solid" ></div>
+
+        <div class="row" style="background-image: url('../boot/img/stepbackground3.png');padding: 20px;padding-left: 100px">
+            <h1>Step3. 过程挖掘 <span class="glyphicon glyphicon-wrench"></span></h1>
+            <h2><small style="font-size: 20px">还原持续集成（CI）过程模型</small></h2>
+            <br>
+            <button class=" btn btn-primary">Compute</button>
+        </div>
+        <br>
+        <div  class="row" style="border: 1px lightgray solid" ></div>
+
+        <div class="row" style="background-image: url('../boot/img/stepbackground3.png');padding: 20px;padding-left: 100px">
+            <h1>Step4. 参数分析 <span class="glyphicon glyphicon-stats"></span></h1>
+            <h2><small style="font-size: 20px">生成参数分析报告</small></h2>
+            <br>
+            <button class=" btn btn-primary">Produce</button>
+        </div>
+        <br>
+        <div  class="row" style="border: 1px lightgray solid" ></div>
+
+        <div class="row" style="background-color: #3c3c3c">
+            <br>
+            <address class="text-right" style="padding-right: 150px; color: white">
+                <strong>Nanjing University</strong><br>
+                Hankou Street,Gulou 22<br>
+                Nanjing, China 210093<br>
+                <abbr title="Phone">P:</abbr> 15950532336
+            </address>
+            <address class="text-right" style="padding-right: 150px; color: white">
+                <strong>Kaiwen Song(Karen)</strong><br>
+                <a href="mailto:#">karenskw@qq.com</a>
+                <br>
+                <strong>Jiahui Wang</strong><br>
+                <a href="mailto:#">970030918@qq.com</a>
+            </address>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $("#input-b5").fileinput({
+                showCaption: false,
+                dropZoneEnabled: false,
+                // uploadUrl:"http://localhost:63342/toolLook/src/main/webapp/base/"
+            });
+        });
+    </script>
+
+
+</body>
+</html>
