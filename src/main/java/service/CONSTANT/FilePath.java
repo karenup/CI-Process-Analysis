@@ -6,5 +6,6 @@ package service.CONSTANT;
  */
 public class FilePath {
     public static final String csvFilePath = "/Users/karen/nju-work/graduate-design/jobLogExtract_v3_withStatusTime/";
+    public static final String outputPath = "/Users/karen/nju-work/graduate-design/code/uploadFile/";
 
 }
