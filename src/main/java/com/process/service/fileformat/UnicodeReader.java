@@ -1,8 +1,8 @@
-package service.fileformat;
+package com.process.service.fileformat;
 
 /**
  * @author songkaiwen
- * @date 2021/1/13 9:33 上午
+ * @date 2021/1/13 9:36 上午
  */
 
 /**
@@ -13,7 +13,7 @@ package service.fileformat;
  Implementation tweaked: Aki Nieminen
 
  http://www.unicode.org/unicode/faq/utf_bom.html
- BOMs in byte length ordering:
+ BOMs:
  00 00 FE FF    = UTF-32, big-endian
  FF FE 00 00    = UTF-32, little-endian
  EF BB BF       = UTF-8,
@@ -27,29 +27,25 @@ package service.fileformat;
 import java.io.*;
 
 /**
- * This inputstream will recognize unicode BOM marks
- * and will skip bytes if getEncoding() method is called
- * before any of the read(...) methods.
- *
- * Usage pattern:
- String enc = "ISO-8859-1"; // or NULL to use systemdefault
- FileInputStream fis = new FileInputStream(file);
- UnicodeInputStream uin = new UnicodeInputStream(fis, enc);
- enc = uin.getEncoding(); // check and skip possible BOM bytes
- InputStreamReader in;
- if (enc == null) in = new InputStreamReader(uin);
- else in = new InputStreamReader(uin, enc);
+ * Generic unicode textreader, which will use BOM mark
+ * to identify the encoding to be used. If BOM is not found
+ * then use a given default or system encoding.
  * @author karen
  */
-public class UnicodeInputStream extends InputStream {
+public class UnicodeReader extends Reader {
     PushbackInputStream internalIn;
-    boolean             isInited = false;
+    InputStreamReader   internalIn2 = null;
     String              defaultEnc;
-    String              encoding;
 
     private static final int BOM_SIZE = 4;
 
-    UnicodeInputStream(InputStream in, String defaultEnc) {
+    /**
+     *
+     * @param in  inputstream to be read
+     * @param defaultEnc default encoding if stream does not have
+     *                   BOM marker. Give NULL to use system-level default.
+     */
+    public UnicodeReader(InputStream in, String defaultEnc) {
         internalIn = new PushbackInputStream(in, BOM_SIZE);
         this.defaultEnc = defaultEnc;
     }
@@ -58,17 +54,13 @@ public class UnicodeInputStream extends InputStream {
         return defaultEnc;
     }
 
+    /**
+     * Get stream encoding or NULL if stream is uninitialized.
+     * Call init() or read() method to initialize it.
+     */
     public String getEncoding() {
-        if (!isInited) {
-            try {
-                init();
-            } catch (IOException ex) {
-                IllegalStateException ise = new IllegalStateException("Init method failed.");
-                ise.initCause(ise);
-                throw ise;
-            }
-        }
-        return encoding;
+        if (internalIn2 == null) {return null;}
+        return internalIn2.getEncoding();
     }
 
     /**
@@ -76,8 +68,9 @@ public class UnicodeInputStream extends InputStream {
      * unread back to the stream, only BOM bytes are skipped.
      */
     protected void init() throws IOException {
-        if (isInited) {return;}
+        if (internalIn2 != null) {return;}
 
+        String encoding;
         byte bom[] = new byte[BOM_SIZE];
         int n, unread;
         n = internalIn.read(bom, 0, bom.length);
@@ -109,20 +102,24 @@ public class UnicodeInputStream extends InputStream {
 
         if (unread > 0) {internalIn.unread(bom, (n - unread), unread);}
 
-        isInited = true;
+        // Use given encoding
+        if (encoding == null) {
+            internalIn2 = new InputStreamReader(internalIn);
+        } else {
+            internalIn2 = new InputStreamReader(internalIn, encoding);
+        }
     }
 
     @Override
     public void close() throws IOException {
-        //init();
-        isInited = true;
-        internalIn.close();
+        init();
+        internalIn2.close();
     }
 
     @Override
-    public int read() throws IOException {
-        //init();
-        isInited = true;
-        return internalIn.read();
+    public int read(char[] cbuf, int off, int len) throws IOException {
+        init();
+        return internalIn2.read(cbuf, off, len);
     }
+
 }

@@ -1,4 +1,4 @@
-package service.processMining;
+package com.process.service.processMining;
 
 /**
  * @author songkaiwen

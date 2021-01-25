@@ -1,4 +1,4 @@
-package service.CONSTANT;
+package com.process.service.CONSTANT;
 
 /**
  * @author songkaiwen

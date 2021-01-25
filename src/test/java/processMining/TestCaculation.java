@@ -2,7 +2,7 @@ package processMining;
 
 
 import org.junit.Test;
-import service.processMining.Caculation;
+import com.process.service.processMining.Caculation;
 
 
 import java.util.*;
