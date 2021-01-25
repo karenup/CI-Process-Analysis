@@ -22,14 +22,16 @@ def writeOneRow(preJobId, preActivity, preStartTime, preEndTime, preBuildStatus,
     print(preJobId + ',' + preActivity + ',' + preStartTime + ',' + preEndTime + '' + preBuildStatus)
     writer.writerow(result)
 
-def addStatusRowTime(projectName):
+def addStatusRowTime(projectName,outputFile):
     title = ['Job ID', 'Activity', 'Start Timestamp', 'Complete Timestamp', 'build status']
-    output = "D:/Users/b/PycharmProjects/jobLogExtract/extract/" + projectName + "_extract.csv"  # 输出文件路径
+    # output = "D:/Users/b/PycharmProjects/jobLogExtract/extract/" + projectName + "_extract.csv"  # 输出文件路径
+    output = outputFile + projectName + "_extract.csv"  # 输出文件路径
     outfile = open(output, 'w', encoding='gb18030', newline='')
     writer = csv.writer(outfile)
     writer.writerow(title)
 
-    fileExtractTemp = "D:/Users/b/PycharmProjects/jobLogExtract/merge/" + projectName + "_extract_merge.csv"
+    # fileExtractTemp = "D:/Users/b/PycharmProjects/jobLogExtract/merge/" + projectName + "_extract_merge.csv"
+    fileExtractTemp = outputFile + projectName + "_extract_merge.csv"  # 输出文件路径
     targetTemp = pd.read_csv(fileExtractTemp, encoding="unicode_escape")
     target_start = targetTemp[['Job ID', 'Activity', 'Start Timestamp', 'Complete Timestamp', 'build status']]
 
@@ -65,4 +67,4 @@ if __name__ == '__main__':
     a = []
     for i in range(1, len(sys.argv)):
         a.append((sys.argv[i]))
-    addStatusRowTime(a[0])
+    addStatusRowTime(a[0], a[1])

@@ -56,14 +56,16 @@ def same(activity, preActivity):
             return True
     return False
 
-def CSVMerge(projectName):
+def CSVMerge(projectName,outputFile):
     title = ['Job ID','Activity','Start Timestamp','Complete Timestamp','build status']
-    output = "D:/Users/b/PycharmProjects/jobLogExtract/merge/" + projectName + "_extract_merge.csv"  # 输出文件路径
+    # output = "D:/Users/b/PycharmProjects/jobLogExtract/merge/" + projectName + "_extract_merge.csv"  # 输出文件路径
+    output = outputFile + projectName + "_extract_merge.csv"
     outfile = open(output, 'w', encoding='gb18030', newline='')
     writer = csv.writer(outfile)
     writer.writerow(title)
 
-    fileExtractTemp = "D:/Users/b/PycharmProjects/jobLogExtract/temp/" + projectName + "_extract_temp.csv"
+    # fileExtractTemp = "D:/Users/b/PycharmProjects/jobLogExtract/temp/" + projectName + "_extract_temp.csv"
+    fileExtractTemp = outputFile + projectName + "_extract_temp.csv"
     targetTemp = pd.read_csv(fileExtractTemp, encoding="unicode_escape")
     target_start = targetTemp[['Job ID', 'Activity', 'Start Timestamp', 'Complete Timestamp', 'build status']]
 
@@ -106,5 +108,5 @@ if __name__ == '__main__':
     a = []
     for i in range(1, len(sys.argv)):
         a.append((sys.argv[i]))
-    CSVMerge(a[0])
+    CSVMerge(a[0], a[1])
 

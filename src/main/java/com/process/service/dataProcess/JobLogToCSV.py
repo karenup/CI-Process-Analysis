@@ -446,11 +446,12 @@ def writeExtractFile(targetOUT,CIinUse,abnormalBuild,path,writer):
 
 # 运行程序需要改"output","fileOUT","fileCI"文件路径,和“extractOneFile”、“jobLogLastStepTime”、“jobLogExists”方法里的"path"路径
 
-def CIOutJoblogToCSV(fileCI,fileOUT,path):
+def CIOutJoblogToCSV(fileCI,fileOUT,path,outputFile):
     CIname = fileCI.split('/')[-1]
     projectName = CIname.split('_')[0]
     title = ['Job ID', 'Activity', 'Start Timestamp', 'Complete Timestamp', 'build status']
-    output = "D:/Users/b/PycharmProjects/jobLogExtract/temp/" + projectName + "_extract_temp.csv"  # 输出文件路径
+    # output = "D:/Users/b/PycharmProjects/jobLogExtract/temp/" + projectName + "_extract_temp.csv"  # 输出文件路径
+    output = outputFile + projectName + "_extract_temp.csv"
     outfile = open(output, 'w', encoding='gb18030', newline='')
     writer = csv.writer(outfile)
     writer.writerow(title)
@@ -476,7 +477,7 @@ if __name__ == '__main__':
     for i in range(1, len(sys.argv)):
         a.append((sys.argv[i]))
 
-    projectName = CIOutJoblogToCSV(a[0], a[1],a[2])
+    projectName = CIOutJoblogToCSV(a[0], a[1],a[2],a[3])
     print(projectName)
     # CIOutJoblogToCSV('D:/南京大学/研一/Thesis/日志整理/CI/android_CI.csv',
     #                              'D:/南京大学/研一/Thesis/日志整理/COtoCI/android_out.csv',
