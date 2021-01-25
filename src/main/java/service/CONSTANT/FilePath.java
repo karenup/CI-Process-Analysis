@@ -1,4 +1,4 @@
-package CONSTANT;
+package service.CONSTANT;
 
 /**
  * @author songkaiwen

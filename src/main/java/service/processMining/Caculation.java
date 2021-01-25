@@ -1,7 +1,7 @@
-package processMining;
+package service.processMining;
 
-import CONSTANT.FilePath;
-import fileformat.UnicodeReader;
+import service.CONSTANT.FilePath;
+import service.fileformat.UnicodeReader;
 
 import java.io.*;
 import java.text.DateFormat;

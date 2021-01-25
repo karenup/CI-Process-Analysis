@@ -1,4 +1,4 @@
-package com.paper.CIprocessanalysis;
+package service.dataProcess;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

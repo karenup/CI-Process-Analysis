@@ -1,4 +1,4 @@
-package fileformat;
+package service.fileformat;
 
 /**
  * @author songkaiwen
