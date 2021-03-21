@@ -12,8 +12,8 @@ public class MiningAlgorithm {
     public String processMiningAlg(String AlgNumber, String ProName){
         String eventLogFilePath = FilePath.eventLogOutputPath + ProName + "_extract.csv";
         String outPutPDFPath = FilePath.PDFOutPutPath + ProName + "_" + AlgNumber + ".pdf";
-        String exe = "python";
-        String command = "src\\main\\java\\com\\process\\service\\processMining\\pm4pyAlgorithm.py";
+        String exe = "/Users/karen/nju-work/graduate-design/code/CI-process-analysis/venv/bin/python";
+        String command = "/Users/karen/nju-work/graduate-design/code/CI-process-analysis/src/main/java/com/process/service/processMining/pm4pyAlgorithm.py";
         String resultCSV = null;
 
         try {

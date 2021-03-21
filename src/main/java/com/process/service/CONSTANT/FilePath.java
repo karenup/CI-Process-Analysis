@@ -8,11 +8,15 @@ public class FilePath {
     public static final String csvFilePath = "/Users/karen/nju-work/graduate-design/jobLogExtract_v3_withStatusTime/";
     public static final String outputPath = "/Users/karen/nju-work/graduate-design/code/uploadFile/";
 
-    public static final String CIFilePath = "D:/南京大学/研一/Thesis/日志整理/CI/";
-    public static final String OutFilePath = "D:/南京大学/研一/Thesis/日志整理/COtoCI/";
-    public static final String jobLogfilePath = "D:/Users/b/PycharmProjects/jobLog/";
-    public static final String eventLogOutputPath = "D:/Users/b/PycharmProjects/jobLogExtract/extract/";
-    public static final String PDFOutPutPath = "D:/Users/b/PycharmProjects/jobLogExtract/pdf/";
+    public static final String CIFilePath = "/Users/karen/nju-work/graduate-design/日志整理/CI/";
+    public static final String OutFilePath = "/Users/karen/nju-work/graduate-design/日志整理/COtoCI/";
+    public static final String jobLogfilePath = "/Users/karen/nju-work/graduate-design/jobLog/";
+    public static final String eventLogOutputPath = "/Users/karen/nju-work/tool-test/extract/";
+    public static final String PDFOutPutPath = "/Users/karen/nju-work/tool-test/model-output/";
+
+    public static final String CheckOutPutPath1 = "/Users/karen/nju-work/tool-test/conformance/tokenReplay/";
+    public static final String CheckOutPutPath2 = "/Users/karen/nju-work/tool-test/conformance/alignment/";
+    public static final String EvaluateOutPutPath = "/Users/karen/nju-work/tool-test/evaluate/";
 
 
 }

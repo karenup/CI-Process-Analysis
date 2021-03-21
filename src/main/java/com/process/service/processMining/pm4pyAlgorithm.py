@@ -15,7 +15,7 @@ from pm4py.visualization.dfg import visualizer as dfg_visualization
 
 # 使用heuristic算法,directly-follows gragh算法,应用alpha算法
 def alpha(event_log, outPutPDFPath):
-    parameters = {alpha_miner.Parameters.CASE_ID_KEY:"Job ID",alpha_miner.Parameters.ACTIVITY_KEY:"Activity"
+    parameters = {alpha_miner.Parameters.CASE_ID_KEY:"case:Job ID",alpha_miner.Parameters.ACTIVITY_KEY:"Activity"
                   ,alpha_miner.Parameters.START_TIMESTAMP_KEY:"Start Timestamp"}
     net, initial_marking, final_marking = alpha_miner.apply(event_log,parameters)
 
@@ -26,7 +26,7 @@ def alpha(event_log, outPutPDFPath):
     pn_visualizer.save(gviz,outPutPDFPath)
 
 def Heuristic(event_log, outPutPDFPath):
-    parameters = {heuristics_miner.Variants.CLASSIC.value.Parameters.CASE_ID_KEY:"Job ID",
+    parameters = {heuristics_miner.Variants.CLASSIC.value.Parameters.CASE_ID_KEY:"case:Job ID",
                   heuristics_miner.Variants.CLASSIC.value.Parameters.ACTIVITY_KEY:"Activity"
                   ,heuristics_miner.Variants.CLASSIC.value.Parameters.START_TIMESTAMP_KEY:"Start Timestamp"
                   ,heuristics_miner.Variants.CLASSIC.value.Parameters.DEPENDENCY_THRESH:0.99}
@@ -56,7 +56,10 @@ def miningProcess(AlgNumber, eventLogFilePath, outPutPDFPath):
     log_csv = pd.read_csv(eventLogFilePath, sep=',')
     log_csv = dataframe_utils.convert_timestamp_columns_in_df(log_csv)
     log_csv = log_csv.sort_values('Start Timestamp')
-    parameters = {log_converter.Variants.TO_EVENT_LOG.value.Parameters.CASE_ID_KEY: 'Job ID'}
+    # parameters = {log_converter.Variants.TO_EVENT_LOG.value.Parameters.CASE_ID_KEY: 'Job ID'}
+
+    log_csv.rename(columns={'Job ID': 'case:Job ID'}, inplace=True)
+    parameters = {log_converter.Variants.TO_EVENT_LOG.value.Parameters.CASE_ID_KEY: 'case:Job ID'}
     event_log = log_converter.apply(log_csv, parameters=parameters, variant=log_converter.Variants.TO_EVENT_LOG)
     # print(event_log)
     if AlgNumber=='1' :

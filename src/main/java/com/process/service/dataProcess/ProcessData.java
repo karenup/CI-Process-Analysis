@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProcessData {
 
     public void CSVMerge(String projectName) {
-        String exe = "python";
-        String command = "src\\main\\java\\com\\process\\service\\dataProcess\\mergeActivity.py";
+        String exe = "/Users/karen/nju-work/graduate-design/code/CI-process-analysis/venv/bin/python";
+        String command = "/Users/karen/nju-work/graduate-design/code/CI-process-analysis/src/main/java/com/process/service/dataProcess/mergeActivity.py";
         try {
             String[] cmdArr = new String[] {exe, command, projectName, FilePath.eventLogOutputPath};
             Process proc = Runtime.getRuntime().exec(cmdArr);// 执行py文件
@@ -29,8 +29,8 @@ public class ProcessData {
     }
 
     public void addStatusRowTime(String projectName) {
-        String exe = "python";
-        String command = "src\\main\\java\\com\\process\\service\\dataProcess\\AddStatusRowTime.py";
+        String exe = "/Users/karen/nju-work/graduate-design/code/CI-process-analysis/venv/bin/python";
+        String command = "/Users/karen/nju-work/graduate-design/code/CI-process-analysis/src/main/java/com/process/service/dataProcess/AddStatusRowTime.py";
         try {
             String[] cmdArr = new String[] {exe, command, projectName, FilePath.eventLogOutputPath};
             Process proc = Runtime.getRuntime().exec(cmdArr);// 执行py文件
@@ -51,13 +51,13 @@ public class ProcessData {
         CIPath = FilePath.CIFilePath + CIPath + ".csv";
         OUTPath = FilePath.OutFilePath + OUTPath + ".csv";
         JobLogpath = FilePath.jobLogfilePath + JobLogpath;
-        String exe = "python";
-        String command = "src\\main\\java\\com\\process\\service\\dataProcess\\JobLogToCSV.py";
+        String exe = "/Users/karen/nju-work/graduate-design/code/CI-process-analysis/venv/bin/python";
+        String command = "/Users/karen/nju-work/graduate-design/code/CI-process-analysis/src/main/java/com/process/service/dataProcess/JobLogToCSV.py";
         String resultCSV = null;
 
         try {
             String[] cmdArr = new String[] {exe, command, CIPath, OUTPath, JobLogpath, FilePath.eventLogOutputPath};
-            Process proc = Runtime.getRuntime().exec(cmdArr);// 执行py文件
+            Process proc = Runtime.getRuntime().exec(cmdArr);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line = null;
