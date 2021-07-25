@@ -19,11 +19,14 @@ public class CheckAlgorithm {
         }else if("2".equals(conCheckAlgNum) &&  "2".equals(miningAlgNum)){
             outPutPath = FilePath.CheckOutPutPath2 + ProName + "_" + "heuristic" + ".csv";
         }
-        String exe = "python";
-        String command = "src\\main\\java\\com\\process\\service\\conformanceCheck\\conformanceCheck.py";
+        String exe = "/Users/karen/nju-work/graduate-design/code/CI-process-analysis/venv/bin/python";
+
+        String command = "/Users/karen/nju-work/graduate-design/code/CI-process-analysis/src/main/java/com/process/service/conformanceCheck/conformanceCheck.py";
 
         try {
             String[] cmdArr = new String[] {exe, command, miningAlgNum, conCheckAlgNum, eventLogFilePath, outPutPath};
+            //String str = "python3 /Users/karen/nju-work/graduate-design/code/CI-process-analysis/src/main/java/com/process/service/conformanceCheck/conformanceCheck.py  1 1 /Users/karen/nju-work/tool-test/extract/android_extract.csv /Users/karen/nju-work/tool-test/conformance/tokenReplay/xxx111.csv";
+
             Process proc = Runtime.getRuntime().exec(cmdArr);// 执行py文件
 
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));

@@ -22,7 +22,7 @@ public class TestCheckAlgorithm {
     public void testEvaluateModel(){
 
         EvaluateModel evaluateModel = new EvaluateModel();
-        List<String> list = evaluateModel.modelEvaluate("1","android");
+        String list = evaluateModel.modelEvaluate("1","android");
         System.out.println(list);
 
     }

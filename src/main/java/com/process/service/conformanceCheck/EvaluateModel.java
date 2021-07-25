@@ -8,11 +8,12 @@ import com.process.service.CONSTANT.FilePath;
 
 public class EvaluateModel {
 
-    public List<String> modelEvaluate(String miningAlgNum, String ProName){
+    public String modelEvaluate(String miningAlgNum, String ProName){
         String eventLogFilePath = FilePath.eventLogOutputPath + ProName + "_extract.csv";
-        String exe = "python";
-        String command = "src\\main\\java\\com\\process\\service\\conformanceCheck\\evaluateModel.py";
+        String exe = "/Users/karen/nju-work/graduate-design/code/CI-process-analysis/venv/bin/python";
+        String command = "src/main/java/com/process/service/conformanceCheck/evaluateModel.py";
         List<String> list = new ArrayList<String>();
+        String listString = null;
 
         try {
             String[] cmdArr = new String[] {exe, command, miningAlgNum, eventLogFilePath};
@@ -20,20 +21,19 @@ public class EvaluateModel {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line = null;
-            String listString = null;
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
                 listString = line;
             }
             in.close();
             proc.waitFor();
-            listString = listString.substring(1,listString.length()-1);
-            list = Arrays.asList(listString.split(", "));
+//            listString = listString.substring(1,listString.length()-1);
+//            list = Arrays.asList(listString.split(", "));
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 
-        return list;
+        return listString;
 
     }
 
